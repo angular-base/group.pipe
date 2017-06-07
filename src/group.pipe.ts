@@ -7,19 +7,19 @@ import { isUndefined } from 'util';
 export class GroupPipe implements PipeTransform {
 
   transform (items: any, query?: string): any {
-    let groupBy = '';
+    let name = '';
 
     if (isUndefined(query)) {
       return items;
     }
 
     return items.reduce((groupedItems, item) => {
-      if (groupBy !== item[query]) {
+      if (name !== item[query]) {
         groupedItems.push({
           name: item[query],
           group: [item]
         });
-        groupBy = item[query];
+        name = item[query];
       } else {
         groupedItems[groupedItems.length - 1].group.push(item);
       }
