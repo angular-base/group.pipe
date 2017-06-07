@@ -8,23 +8,22 @@ export class GroupPipe implements PipeTransform {
 
   transform (items: any, query?: string): any {
     let groupValue = '';
-    let newItems = [];
 
     if (isUndefined(query)) {
       return items;
     }
 
-    return items.reduce((map, item) => {
+    return items.reduce((groupedItems, item) => {
       if (groupValue !== item[query]) {
-        newItems.push({
+        groupedItems.push({
           name: item[query],
           group: [item]
         });
         groupValue = item[query];
       } else {
-        newItems[newItems.length - 1].group.push(item);
+        groupedItems[groupedItems.length - 1].group.push(item);
       }
-      return newItems;
+      return groupedItems;
     }, []);
   }
 
